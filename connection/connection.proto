@@ -1,9 +1,9 @@
 syntax = "proto3";
+
 package connection_grpc;
-import "google/protobuf/empty.proto";
 
 service ConnectionService {
-    rpc RequestUserId (google.protobuf.Empty) returns (RequestUserIdResponse);
+    rpc RequestUserId (Empty) returns (RequestUserIdResponse);
 
     rpc Connection (ConnectionRequest) returns (ConnectionResponse);
 
@@ -35,3 +35,5 @@ message AuthResponse {
     ResultMessage message = 1;
     string userId = 2;
 }
+
+message Empty {}
