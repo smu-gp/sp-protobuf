@@ -22,7 +22,7 @@ pub global activate protoc_plugin
 export PATH=$PATH:$HOME/.pub-cache/bin
 ```
 
-- Python
+- Python ([gRPC QuickStart](https://grpc.io/docs/quickstart/python/))
 
 ```bash
 python -m pip install grpcio
@@ -33,4 +33,24 @@ sudo python -m pip install grpcio
 
 python -m pip install grpcio-tools
 
+```
+
+## 빌드 방법
+
+- 전체 Protobuf 빌드
+
+```bash
+make
+```
+
+> Windows 는 Visual Studio 에 포함된 [nmake](https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2019) 이용
+
+- 일부 Protobuf 빌드
+
+```bash
+make connection # Connection 전체 언어 빌드
+
+make connection.go # Go
+make connection.dart # Dart
+make connection.py # Python
 ```
