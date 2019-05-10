@@ -47,6 +47,31 @@ func (AuthResponse_ResultMessage) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_51baa40a1cc6b48b, []int{4, 0}
 }
 
+type AuthDeviceInfo_DeviceType int32
+
+const (
+	AuthDeviceInfo_DEVICE_TABLET AuthDeviceInfo_DeviceType = 0
+	AuthDeviceInfo_DEVICE_WEB    AuthDeviceInfo_DeviceType = 1
+)
+
+var AuthDeviceInfo_DeviceType_name = map[int32]string{
+	0: "DEVICE_TABLET",
+	1: "DEVICE_WEB",
+}
+
+var AuthDeviceInfo_DeviceType_value = map[string]int32{
+	"DEVICE_TABLET": 0,
+	"DEVICE_WEB":    1,
+}
+
+func (x AuthDeviceInfo_DeviceType) String() string {
+	return proto.EnumName(AuthDeviceInfo_DeviceType_name, int32(x))
+}
+
+func (AuthDeviceInfo_DeviceType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_51baa40a1cc6b48b, []int{7, 0}
+}
+
 type RequestUserIdResponse struct {
 	UserId               string   `protobuf:"bytes,1,opt,name=userId,proto3" json:"userId,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -165,10 +190,11 @@ func (m *ConnectionResponse) GetConnectionCode() string {
 }
 
 type AuthRequest struct {
-	ConnectionCode       string   `protobuf:"bytes,1,opt,name=connectionCode,proto3" json:"connectionCode,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	ConnectionCode       string          `protobuf:"bytes,1,opt,name=connectionCode,proto3" json:"connectionCode,omitempty"`
+	DeviceInfo           *AuthDeviceInfo `protobuf:"bytes,2,opt,name=deviceInfo,proto3" json:"deviceInfo,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
 }
 
 func (m *AuthRequest) Reset()         { *m = AuthRequest{} }
@@ -201,6 +227,13 @@ func (m *AuthRequest) GetConnectionCode() string {
 		return m.ConnectionCode
 	}
 	return ""
+}
+
+func (m *AuthRequest) GetDeviceInfo() *AuthDeviceInfo {
+	if m != nil {
+		return m.DeviceInfo
+	}
+	return nil
 }
 
 type AuthResponse struct {
@@ -250,6 +283,147 @@ func (m *AuthResponse) GetUserId() string {
 	return ""
 }
 
+type WaitAuthRequest struct {
+	UserId               string          `protobuf:"bytes,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	AuthDevice           *AuthDeviceInfo `protobuf:"bytes,2,opt,name=authDevice,proto3" json:"authDevice,omitempty"`
+	AcceptDevice         bool            `protobuf:"varint,3,opt,name=acceptDevice,proto3" json:"acceptDevice,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *WaitAuthRequest) Reset()         { *m = WaitAuthRequest{} }
+func (m *WaitAuthRequest) String() string { return proto.CompactTextString(m) }
+func (*WaitAuthRequest) ProtoMessage()    {}
+func (*WaitAuthRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_51baa40a1cc6b48b, []int{5}
+}
+
+func (m *WaitAuthRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WaitAuthRequest.Unmarshal(m, b)
+}
+func (m *WaitAuthRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WaitAuthRequest.Marshal(b, m, deterministic)
+}
+func (m *WaitAuthRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WaitAuthRequest.Merge(m, src)
+}
+func (m *WaitAuthRequest) XXX_Size() int {
+	return xxx_messageInfo_WaitAuthRequest.Size(m)
+}
+func (m *WaitAuthRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_WaitAuthRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_WaitAuthRequest proto.InternalMessageInfo
+
+func (m *WaitAuthRequest) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+func (m *WaitAuthRequest) GetAuthDevice() *AuthDeviceInfo {
+	if m != nil {
+		return m.AuthDevice
+	}
+	return nil
+}
+
+func (m *WaitAuthRequest) GetAcceptDevice() bool {
+	if m != nil {
+		return m.AcceptDevice
+	}
+	return false
+}
+
+type WaitAuthResponse struct {
+	AuthDevice           *AuthDeviceInfo `protobuf:"bytes,1,opt,name=authDevice,proto3" json:"authDevice,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *WaitAuthResponse) Reset()         { *m = WaitAuthResponse{} }
+func (m *WaitAuthResponse) String() string { return proto.CompactTextString(m) }
+func (*WaitAuthResponse) ProtoMessage()    {}
+func (*WaitAuthResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_51baa40a1cc6b48b, []int{6}
+}
+
+func (m *WaitAuthResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WaitAuthResponse.Unmarshal(m, b)
+}
+func (m *WaitAuthResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WaitAuthResponse.Marshal(b, m, deterministic)
+}
+func (m *WaitAuthResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WaitAuthResponse.Merge(m, src)
+}
+func (m *WaitAuthResponse) XXX_Size() int {
+	return xxx_messageInfo_WaitAuthResponse.Size(m)
+}
+func (m *WaitAuthResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_WaitAuthResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_WaitAuthResponse proto.InternalMessageInfo
+
+func (m *WaitAuthResponse) GetAuthDevice() *AuthDeviceInfo {
+	if m != nil {
+		return m.AuthDevice
+	}
+	return nil
+}
+
+type AuthDeviceInfo struct {
+	DeviceType           AuthDeviceInfo_DeviceType `protobuf:"varint,1,opt,name=deviceType,proto3,enum=connection_grpc.AuthDeviceInfo_DeviceType" json:"deviceType,omitempty"`
+	DeviceName           string                    `protobuf:"bytes,2,opt,name=deviceName,proto3" json:"deviceName,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
+	XXX_unrecognized     []byte                    `json:"-"`
+	XXX_sizecache        int32                     `json:"-"`
+}
+
+func (m *AuthDeviceInfo) Reset()         { *m = AuthDeviceInfo{} }
+func (m *AuthDeviceInfo) String() string { return proto.CompactTextString(m) }
+func (*AuthDeviceInfo) ProtoMessage()    {}
+func (*AuthDeviceInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_51baa40a1cc6b48b, []int{7}
+}
+
+func (m *AuthDeviceInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AuthDeviceInfo.Unmarshal(m, b)
+}
+func (m *AuthDeviceInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AuthDeviceInfo.Marshal(b, m, deterministic)
+}
+func (m *AuthDeviceInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuthDeviceInfo.Merge(m, src)
+}
+func (m *AuthDeviceInfo) XXX_Size() int {
+	return xxx_messageInfo_AuthDeviceInfo.Size(m)
+}
+func (m *AuthDeviceInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuthDeviceInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AuthDeviceInfo proto.InternalMessageInfo
+
+func (m *AuthDeviceInfo) GetDeviceType() AuthDeviceInfo_DeviceType {
+	if m != nil {
+		return m.DeviceType
+	}
+	return AuthDeviceInfo_DEVICE_TABLET
+}
+
+func (m *AuthDeviceInfo) GetDeviceName() string {
+	if m != nil {
+		return m.DeviceName
+	}
+	return ""
+}
+
 type Empty struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -260,7 +434,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_51baa40a1cc6b48b, []int{5}
+	return fileDescriptor_51baa40a1cc6b48b, []int{8}
 }
 
 func (m *Empty) XXX_Unmarshal(b []byte) error {
@@ -283,37 +457,52 @@ var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 func init() {
 	proto.RegisterEnum("connection_grpc.AuthResponse_ResultMessage", AuthResponse_ResultMessage_name, AuthResponse_ResultMessage_value)
+	proto.RegisterEnum("connection_grpc.AuthDeviceInfo_DeviceType", AuthDeviceInfo_DeviceType_name, AuthDeviceInfo_DeviceType_value)
 	proto.RegisterType((*RequestUserIdResponse)(nil), "connection_grpc.RequestUserIdResponse")
 	proto.RegisterType((*ConnectionRequest)(nil), "connection_grpc.ConnectionRequest")
 	proto.RegisterType((*ConnectionResponse)(nil), "connection_grpc.ConnectionResponse")
 	proto.RegisterType((*AuthRequest)(nil), "connection_grpc.AuthRequest")
 	proto.RegisterType((*AuthResponse)(nil), "connection_grpc.AuthResponse")
+	proto.RegisterType((*WaitAuthRequest)(nil), "connection_grpc.WaitAuthRequest")
+	proto.RegisterType((*WaitAuthResponse)(nil), "connection_grpc.WaitAuthResponse")
+	proto.RegisterType((*AuthDeviceInfo)(nil), "connection_grpc.AuthDeviceInfo")
 	proto.RegisterType((*Empty)(nil), "connection_grpc.Empty")
 }
 
 func init() { proto.RegisterFile("connection.proto", fileDescriptor_51baa40a1cc6b48b) }
 
 var fileDescriptor_51baa40a1cc6b48b = []byte{
-	// 304 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x48, 0xce, 0xcf, 0xcb,
-	0x4b, 0x4d, 0x2e, 0xc9, 0xcc, 0xcf, 0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x47, 0x88,
-	0xc4, 0xa7, 0x17, 0x15, 0x24, 0x2b, 0xe9, 0x73, 0x89, 0x06, 0xa5, 0x16, 0x96, 0xa6, 0x16, 0x97,
-	0x84, 0x16, 0xa7, 0x16, 0x79, 0xa6, 0x04, 0xa5, 0x16, 0x17, 0xe4, 0xe7, 0x15, 0xa7, 0x0a, 0x89,
-	0x71, 0xb1, 0x95, 0x82, 0x45, 0x24, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xa0, 0x3c, 0x25, 0x6d,
-	0x2e, 0x41, 0x67, 0xb8, 0x19, 0x50, 0xad, 0x38, 0x15, 0xdb, 0x70, 0x09, 0x21, 0x2b, 0x86, 0x1a,
-	0xad, 0xc6, 0xc5, 0x87, 0x70, 0x86, 0x73, 0x7e, 0x4a, 0x2a, 0x54, 0x17, 0x9a, 0xa8, 0x92, 0x29,
-	0x17, 0xb7, 0x63, 0x69, 0x49, 0x06, 0xcc, 0x12, 0x62, 0xb5, 0x2d, 0x67, 0xe4, 0xe2, 0x81, 0xe8,
-	0x83, 0xda, 0xe7, 0xca, 0xc5, 0x9e, 0x9b, 0x5a, 0x5c, 0x9c, 0x98, 0x0e, 0xd1, 0xc1, 0x67, 0xa4,
-	0xad, 0x87, 0x16, 0x0c, 0x7a, 0xc8, 0xea, 0xf5, 0x82, 0x52, 0x8b, 0x4b, 0x73, 0x4a, 0x7c, 0x21,
-	0x5a, 0x82, 0x60, 0x7a, 0x91, 0x3c, 0xc9, 0x84, 0xe2, 0x49, 0x0b, 0x2e, 0x5e, 0x14, 0x1d, 0x42,
-	0x42, 0x5c, 0x7c, 0xbe, 0xae, 0xc1, 0xc1, 0x8e, 0xee, 0xae, 0xf1, 0x6e, 0x8e, 0x9e, 0x3e, 0xae,
-	0x2e, 0x02, 0x0c, 0x42, 0xc2, 0x5c, 0xfc, 0x30, 0xb1, 0xe0, 0x50, 0x67, 0x67, 0xd7, 0xe0, 0x60,
-	0x01, 0x46, 0x25, 0x76, 0x2e, 0x56, 0xd7, 0xdc, 0x82, 0x92, 0x4a, 0xa3, 0x06, 0x26, 0xe4, 0x50,
-	0x0d, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0x15, 0xf2, 0x07, 0x19, 0x8c, 0x14, 0x37, 0x42, 0x62,
-	0x18, 0xee, 0x06, 0x6b, 0x97, 0x52, 0xc3, 0x10, 0xc7, 0x1e, 0xa7, 0xa1, 0x5c, 0x5c, 0x08, 0x5b,
-	0x84, 0x94, 0x30, 0x74, 0x61, 0x44, 0xac, 0x94, 0x32, 0x5e, 0x35, 0x50, 0x63, 0x9d, 0xb9, 0x58,
-	0x40, 0xe1, 0x27, 0x24, 0x83, 0x23, 0x58, 0x21, 0x46, 0xc9, 0xe2, 0x0d, 0xf4, 0x24, 0x36, 0x70,
-	0x02, 0x35, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x1c, 0x2d, 0x69, 0x64, 0xb4, 0x02, 0x00, 0x00,
+	// 477 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0x4d, 0x6f, 0xd3, 0x40,
+	0x10, 0xed, 0x06, 0x68, 0xcb, 0xb4, 0x75, 0xdc, 0x41, 0x54, 0x55, 0xc4, 0x47, 0x58, 0xa4, 0x2a,
+	0xa2, 0x92, 0x8b, 0xc2, 0x85, 0x03, 0x12, 0x4a, 0x9d, 0x05, 0x05, 0xb5, 0x20, 0xed, 0x26, 0xf4,
+	0x18, 0x19, 0x67, 0x29, 0x91, 0x88, 0x6d, 0xe2, 0x4d, 0xa5, 0xfe, 0x09, 0xfe, 0x06, 0x27, 0x7e,
+	0x0e, 0xff, 0x07, 0x25, 0xde, 0xb5, 0xd7, 0x71, 0x13, 0xca, 0x31, 0x2f, 0xef, 0xbd, 0x99, 0x7d,
+	0x33, 0x63, 0x70, 0xc3, 0x38, 0x8a, 0x64, 0xa8, 0xc6, 0x71, 0xe4, 0x25, 0xd3, 0x58, 0xc5, 0x58,
+	0x2f, 0x90, 0xe1, 0xe5, 0x34, 0x09, 0xe9, 0x09, 0x3c, 0xe4, 0xf2, 0xc7, 0x4c, 0xa6, 0x6a, 0x90,
+	0xca, 0x69, 0x6f, 0xc4, 0x65, 0x9a, 0xc4, 0x51, 0x2a, 0xf1, 0x00, 0x36, 0x67, 0x0b, 0xe4, 0x90,
+	0x34, 0x49, 0xeb, 0x3e, 0xd7, 0xbf, 0xe8, 0x31, 0xec, 0xfb, 0xb9, 0x87, 0x96, 0xae, 0x24, 0xbf,
+	0x01, 0xb4, 0xc9, 0xda, 0xfa, 0x08, 0x9c, 0xa2, 0x0d, 0x3f, 0x1e, 0x49, 0xad, 0x5a, 0x42, 0xe9,
+	0x15, 0xec, 0x74, 0x66, 0xea, 0x9b, 0x29, 0x72, 0x4b, 0x19, 0xbe, 0x05, 0x18, 0xc9, 0xab, 0x71,
+	0x28, 0x7b, 0xd1, 0xd7, 0xf8, 0xb0, 0xd6, 0x24, 0xad, 0x9d, 0xf6, 0x53, 0x6f, 0xe9, 0xe1, 0xde,
+	0xdc, 0xb9, 0x9b, 0xd3, 0xb8, 0x25, 0xa1, 0xbf, 0x08, 0xec, 0x66, 0x85, 0x75, 0xc3, 0x0c, 0xb6,
+	0x26, 0x32, 0x4d, 0x83, 0xcb, 0xac, 0xa4, 0xd3, 0x3e, 0xbe, 0xd1, 0xce, 0xf0, 0x3d, 0x2e, 0xd3,
+	0xd9, 0x77, 0x75, 0x9e, 0x49, 0xb8, 0xd1, 0x5a, 0x29, 0xd5, 0x4a, 0x29, 0xbd, 0x86, 0xbd, 0x92,
+	0x02, 0x11, 0x9c, 0x73, 0x26, 0x44, 0xe7, 0x3d, 0x1b, 0xbe, 0xeb, 0xf4, 0xce, 0x58, 0xd7, 0xdd,
+	0xc0, 0x07, 0x50, 0x37, 0x98, 0x18, 0xf8, 0x3e, 0x13, 0xc2, 0x25, 0xf4, 0x27, 0x81, 0xfa, 0x45,
+	0x30, 0x56, 0x76, 0x4c, 0x2b, 0x66, 0x31, 0x8f, 0x25, 0xc8, 0xdf, 0x7c, 0xeb, 0x58, 0x0a, 0x09,
+	0x52, 0xd8, 0x0d, 0xc2, 0x50, 0x26, 0x4a, 0x5b, 0xdc, 0x69, 0x92, 0xd6, 0x36, 0x2f, 0x61, 0x54,
+	0x80, 0x5b, 0xf4, 0xa3, 0xd3, 0x2b, 0x17, 0x26, 0xff, 0x5d, 0x98, 0xfe, 0x26, 0xe0, 0x94, 0xff,
+	0xc6, 0x0f, 0x66, 0xc6, 0xfd, 0xeb, 0xc4, 0x0c, 0xe5, 0xc5, 0x3f, 0x3c, 0xbd, 0x6e, 0xae, 0xe0,
+	0x96, 0x1a, 0x9f, 0x18, 0xaf, 0x8f, 0xc1, 0x44, 0xea, 0xd1, 0x58, 0x08, 0x3d, 0x01, 0x28, 0x94,
+	0xb8, 0x0f, 0x7b, 0x5d, 0xf6, 0xb9, 0xe7, 0xb3, 0x61, 0xbf, 0x73, 0x7a, 0xc6, 0xfa, 0xee, 0x06,
+	0x3a, 0x00, 0x1a, 0xba, 0x60, 0xa7, 0x2e, 0xa1, 0x5b, 0x70, 0x8f, 0x4d, 0x12, 0x75, 0xdd, 0xfe,
+	0x53, 0xb3, 0x8f, 0x45, 0xc8, 0xe9, 0x22, 0xc7, 0x4f, 0xf3, 0x71, 0x5b, 0x27, 0x87, 0x07, 0x95,
+	0xc6, 0x17, 0xf2, 0xc6, 0x51, 0x05, 0xbf, 0xf9, 0x54, 0x07, 0x00, 0x45, 0x15, 0xa4, 0x15, 0x55,
+	0xe5, 0x5e, 0x1b, 0xcf, 0xd7, 0x72, 0xb4, 0xad, 0x0f, 0x77, 0xe7, 0x01, 0xe2, 0xa3, 0x15, 0xcb,
+	0x9e, 0x59, 0x3d, 0x5e, 0x7b, 0x0a, 0x28, 0x60, 0xdb, 0x2c, 0x04, 0x36, 0x2b, 0xd4, 0xa5, 0xdd,
+	0x6d, 0x3c, 0x5b, 0xc3, 0xc8, 0x0c, 0x5b, 0xe4, 0x25, 0xf9, 0xb2, 0xb9, 0xf8, 0x98, 0xbd, 0xfa,
+	0x1b, 0x00, 0x00, 0xff, 0xff, 0x42, 0x96, 0xc5, 0x06, 0xe0, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -331,6 +520,7 @@ type ConnectionServiceClient interface {
 	RequestUserId(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RequestUserIdResponse, error)
 	Connection(ctx context.Context, in *ConnectionRequest, opts ...grpc.CallOption) (*ConnectionResponse, error)
 	Auth(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error)
+	WaitAuth(ctx context.Context, opts ...grpc.CallOption) (ConnectionService_WaitAuthClient, error)
 }
 
 type connectionServiceClient struct {
@@ -368,11 +558,43 @@ func (c *connectionServiceClient) Auth(ctx context.Context, in *AuthRequest, opt
 	return out, nil
 }
 
+func (c *connectionServiceClient) WaitAuth(ctx context.Context, opts ...grpc.CallOption) (ConnectionService_WaitAuthClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ConnectionService_serviceDesc.Streams[0], "/connection_grpc.ConnectionService/WaitAuth", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &connectionServiceWaitAuthClient{stream}
+	return x, nil
+}
+
+type ConnectionService_WaitAuthClient interface {
+	Send(*WaitAuthRequest) error
+	Recv() (*WaitAuthResponse, error)
+	grpc.ClientStream
+}
+
+type connectionServiceWaitAuthClient struct {
+	grpc.ClientStream
+}
+
+func (x *connectionServiceWaitAuthClient) Send(m *WaitAuthRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *connectionServiceWaitAuthClient) Recv() (*WaitAuthResponse, error) {
+	m := new(WaitAuthResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // ConnectionServiceServer is the server API for ConnectionService service.
 type ConnectionServiceServer interface {
 	RequestUserId(context.Context, *Empty) (*RequestUserIdResponse, error)
 	Connection(context.Context, *ConnectionRequest) (*ConnectionResponse, error)
 	Auth(context.Context, *AuthRequest) (*AuthResponse, error)
+	WaitAuth(ConnectionService_WaitAuthServer) error
 }
 
 func RegisterConnectionServiceServer(s *grpc.Server, srv ConnectionServiceServer) {
@@ -433,6 +655,32 @@ func _ConnectionService_Auth_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConnectionService_WaitAuth_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ConnectionServiceServer).WaitAuth(&connectionServiceWaitAuthServer{stream})
+}
+
+type ConnectionService_WaitAuthServer interface {
+	Send(*WaitAuthResponse) error
+	Recv() (*WaitAuthRequest, error)
+	grpc.ServerStream
+}
+
+type connectionServiceWaitAuthServer struct {
+	grpc.ServerStream
+}
+
+func (x *connectionServiceWaitAuthServer) Send(m *WaitAuthResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *connectionServiceWaitAuthServer) Recv() (*WaitAuthRequest, error) {
+	m := new(WaitAuthRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 var _ConnectionService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "connection_grpc.ConnectionService",
 	HandlerType: (*ConnectionServiceServer)(nil),
@@ -450,6 +698,13 @@ var _ConnectionService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _ConnectionService_Auth_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "WaitAuth",
+			Handler:       _ConnectionService_WaitAuth_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "connection.proto",
 }

@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='connection_grpc',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x10\x63onnection.proto\x12\x0f\x63onnection_grpc\"\'\n\x15RequestUserIdResponse\x12\x0e\n\x06userId\x18\x01 \x01(\t\"#\n\x11\x43onnectionRequest\x12\x0e\n\x06userId\x18\x01 \x01(\t\",\n\x12\x43onnectionResponse\x12\x16\n\x0e\x63onnectionCode\x18\x01 \x01(\t\"%\n\x0b\x41uthRequest\x12\x16\n\x0e\x63onnectionCode\x18\x01 \x01(\t\"\x96\x01\n\x0c\x41uthResponse\x12<\n\x07message\x18\x01 \x01(\x0e\x32+.connection_grpc.AuthResponse.ResultMessage\x12\x0e\n\x06userId\x18\x02 \x01(\t\"8\n\rResultMessage\x12\x12\n\x0eMESSAGE_FAILED\x10\x00\x12\x13\n\x0fMESSAGE_SUCCESS\x10\x01\"\x07\n\x05\x45mpty2\x80\x02\n\x11\x43onnectionService\x12O\n\rRequestUserId\x12\x16.connection_grpc.Empty\x1a&.connection_grpc.RequestUserIdResponse\x12U\n\nConnection\x12\".connection_grpc.ConnectionRequest\x1a#.connection_grpc.ConnectionResponse\x12\x43\n\x04\x41uth\x12\x1c.connection_grpc.AuthRequest\x1a\x1d.connection_grpc.AuthResponseb\x06proto3')
+  serialized_pb=_b('\n\x10\x63onnection.proto\x12\x0f\x63onnection_grpc\"\'\n\x15RequestUserIdResponse\x12\x0e\n\x06userId\x18\x01 \x01(\t\"#\n\x11\x43onnectionRequest\x12\x0e\n\x06userId\x18\x01 \x01(\t\",\n\x12\x43onnectionResponse\x12\x16\n\x0e\x63onnectionCode\x18\x01 \x01(\t\"Z\n\x0b\x41uthRequest\x12\x16\n\x0e\x63onnectionCode\x18\x01 \x01(\t\x12\x33\n\ndeviceInfo\x18\x02 \x01(\x0b\x32\x1f.connection_grpc.AuthDeviceInfo\"\x96\x01\n\x0c\x41uthResponse\x12<\n\x07message\x18\x01 \x01(\x0e\x32+.connection_grpc.AuthResponse.ResultMessage\x12\x0e\n\x06userId\x18\x02 \x01(\t\"8\n\rResultMessage\x12\x12\n\x0eMESSAGE_FAILED\x10\x00\x12\x13\n\x0fMESSAGE_SUCCESS\x10\x01\"l\n\x0fWaitAuthRequest\x12\x0e\n\x06userId\x18\x01 \x01(\t\x12\x33\n\nauthDevice\x18\x02 \x01(\x0b\x32\x1f.connection_grpc.AuthDeviceInfo\x12\x14\n\x0c\x61\x63\x63\x65ptDevice\x18\x03 \x01(\x08\"G\n\x10WaitAuthResponse\x12\x33\n\nauthDevice\x18\x01 \x01(\x0b\x32\x1f.connection_grpc.AuthDeviceInfo\"\x95\x01\n\x0e\x41uthDeviceInfo\x12>\n\ndeviceType\x18\x01 \x01(\x0e\x32*.connection_grpc.AuthDeviceInfo.DeviceType\x12\x12\n\ndeviceName\x18\x02 \x01(\t\"/\n\nDeviceType\x12\x11\n\rDEVICE_TABLET\x10\x00\x12\x0e\n\nDEVICE_WEB\x10\x01\"\x07\n\x05\x45mpty2\xd5\x02\n\x11\x43onnectionService\x12O\n\rRequestUserId\x12\x16.connection_grpc.Empty\x1a&.connection_grpc.RequestUserIdResponse\x12U\n\nConnection\x12\".connection_grpc.ConnectionRequest\x1a#.connection_grpc.ConnectionResponse\x12\x43\n\x04\x41uth\x12\x1c.connection_grpc.AuthRequest\x1a\x1d.connection_grpc.AuthResponse\x12S\n\x08WaitAuth\x12 .connection_grpc.WaitAuthRequest\x1a!.connection_grpc.WaitAuthResponse(\x01\x30\x01\x62\x06proto3')
 )
 
 
@@ -42,10 +42,32 @@ _AUTHRESPONSE_RESULTMESSAGE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=295,
-  serialized_end=351,
+  serialized_start=348,
+  serialized_end=404,
 )
 _sym_db.RegisterEnumDescriptor(_AUTHRESPONSE_RESULTMESSAGE)
+
+_AUTHDEVICEINFO_DEVICETYPE = _descriptor.EnumDescriptor(
+  name='DeviceType',
+  full_name='connection_grpc.AuthDeviceInfo.DeviceType',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='DEVICE_TABLET', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DEVICE_WEB', index=1, number=1,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=692,
+  serialized_end=739,
+)
+_sym_db.RegisterEnumDescriptor(_AUTHDEVICEINFO_DEVICETYPE)
 
 
 _REQUESTUSERIDRESPONSE = _descriptor.Descriptor(
@@ -155,6 +177,13 @@ _AUTHREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='deviceInfo', full_name='connection_grpc.AuthRequest.deviceInfo', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -168,7 +197,7 @@ _AUTHREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=161,
-  serialized_end=198,
+  serialized_end=251,
 )
 
 
@@ -206,8 +235,123 @@ _AUTHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=201,
-  serialized_end=351,
+  serialized_start=254,
+  serialized_end=404,
+)
+
+
+_WAITAUTHREQUEST = _descriptor.Descriptor(
+  name='WaitAuthRequest',
+  full_name='connection_grpc.WaitAuthRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userId', full_name='connection_grpc.WaitAuthRequest.userId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='authDevice', full_name='connection_grpc.WaitAuthRequest.authDevice', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='acceptDevice', full_name='connection_grpc.WaitAuthRequest.acceptDevice', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=406,
+  serialized_end=514,
+)
+
+
+_WAITAUTHRESPONSE = _descriptor.Descriptor(
+  name='WaitAuthResponse',
+  full_name='connection_grpc.WaitAuthResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='authDevice', full_name='connection_grpc.WaitAuthResponse.authDevice', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=516,
+  serialized_end=587,
+)
+
+
+_AUTHDEVICEINFO = _descriptor.Descriptor(
+  name='AuthDeviceInfo',
+  full_name='connection_grpc.AuthDeviceInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='deviceType', full_name='connection_grpc.AuthDeviceInfo.deviceType', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='deviceName', full_name='connection_grpc.AuthDeviceInfo.deviceName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _AUTHDEVICEINFO_DEVICETYPE,
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=590,
+  serialized_end=739,
 )
 
 
@@ -230,17 +374,25 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=353,
-  serialized_end=360,
+  serialized_start=741,
+  serialized_end=748,
 )
 
+_AUTHREQUEST.fields_by_name['deviceInfo'].message_type = _AUTHDEVICEINFO
 _AUTHRESPONSE.fields_by_name['message'].enum_type = _AUTHRESPONSE_RESULTMESSAGE
 _AUTHRESPONSE_RESULTMESSAGE.containing_type = _AUTHRESPONSE
+_WAITAUTHREQUEST.fields_by_name['authDevice'].message_type = _AUTHDEVICEINFO
+_WAITAUTHRESPONSE.fields_by_name['authDevice'].message_type = _AUTHDEVICEINFO
+_AUTHDEVICEINFO.fields_by_name['deviceType'].enum_type = _AUTHDEVICEINFO_DEVICETYPE
+_AUTHDEVICEINFO_DEVICETYPE.containing_type = _AUTHDEVICEINFO
 DESCRIPTOR.message_types_by_name['RequestUserIdResponse'] = _REQUESTUSERIDRESPONSE
 DESCRIPTOR.message_types_by_name['ConnectionRequest'] = _CONNECTIONREQUEST
 DESCRIPTOR.message_types_by_name['ConnectionResponse'] = _CONNECTIONRESPONSE
 DESCRIPTOR.message_types_by_name['AuthRequest'] = _AUTHREQUEST
 DESCRIPTOR.message_types_by_name['AuthResponse'] = _AUTHRESPONSE
+DESCRIPTOR.message_types_by_name['WaitAuthRequest'] = _WAITAUTHREQUEST
+DESCRIPTOR.message_types_by_name['WaitAuthResponse'] = _WAITAUTHRESPONSE
+DESCRIPTOR.message_types_by_name['AuthDeviceInfo'] = _AUTHDEVICEINFO
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -279,6 +431,27 @@ AuthResponse = _reflection.GeneratedProtocolMessageType('AuthResponse', (_messag
   ))
 _sym_db.RegisterMessage(AuthResponse)
 
+WaitAuthRequest = _reflection.GeneratedProtocolMessageType('WaitAuthRequest', (_message.Message,), dict(
+  DESCRIPTOR = _WAITAUTHREQUEST,
+  __module__ = 'connection_pb2'
+  # @@protoc_insertion_point(class_scope:connection_grpc.WaitAuthRequest)
+  ))
+_sym_db.RegisterMessage(WaitAuthRequest)
+
+WaitAuthResponse = _reflection.GeneratedProtocolMessageType('WaitAuthResponse', (_message.Message,), dict(
+  DESCRIPTOR = _WAITAUTHRESPONSE,
+  __module__ = 'connection_pb2'
+  # @@protoc_insertion_point(class_scope:connection_grpc.WaitAuthResponse)
+  ))
+_sym_db.RegisterMessage(WaitAuthResponse)
+
+AuthDeviceInfo = _reflection.GeneratedProtocolMessageType('AuthDeviceInfo', (_message.Message,), dict(
+  DESCRIPTOR = _AUTHDEVICEINFO,
+  __module__ = 'connection_pb2'
+  # @@protoc_insertion_point(class_scope:connection_grpc.AuthDeviceInfo)
+  ))
+_sym_db.RegisterMessage(AuthDeviceInfo)
+
 Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), dict(
   DESCRIPTOR = _EMPTY,
   __module__ = 'connection_pb2'
@@ -294,8 +467,8 @@ _CONNECTIONSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=363,
-  serialized_end=619,
+  serialized_start=751,
+  serialized_end=1092,
   methods=[
   _descriptor.MethodDescriptor(
     name='RequestUserId',
@@ -322,6 +495,15 @@ _CONNECTIONSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_AUTHREQUEST,
     output_type=_AUTHRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='WaitAuth',
+    full_name='connection_grpc.ConnectionService.WaitAuth',
+    index=3,
+    containing_service=None,
+    input_type=_WAITAUTHREQUEST,
+    output_type=_WAITAUTHRESPONSE,
     serialized_options=None,
   ),
 ])

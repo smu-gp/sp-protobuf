@@ -8,6 +8,8 @@ service ConnectionService {
     rpc Connection (ConnectionRequest) returns (ConnectionResponse);
 
     rpc Auth (AuthRequest) returns (AuthResponse);
+
+    rpc WaitAuth (stream WaitAuthRequest) returns (stream WaitAuthResponse);
 }
 
 message RequestUserIdResponse {
@@ -24,6 +26,7 @@ message ConnectionResponse {
 
 message AuthRequest {
     string connectionCode = 1;
+    AuthDeviceInfo deviceInfo = 2;
 }
 
 message AuthResponse {
@@ -34,6 +37,26 @@ message AuthResponse {
 
     ResultMessage message = 1;
     string userId = 2;
+}
+
+message WaitAuthRequest {
+    string userId = 1;
+    AuthDeviceInfo authDevice = 2;
+    bool acceptDevice = 3;
+}
+
+message WaitAuthResponse {
+    AuthDeviceInfo authDevice = 1;
+}
+
+message AuthDeviceInfo {
+    enum DeviceType {
+        DEVICE_TABLET = 0;
+        DEVICE_WEB = 1;
+    }
+
+    DeviceType deviceType = 1;
+    string deviceName = 2;
 }
 
 message Empty {}

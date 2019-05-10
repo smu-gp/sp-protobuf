@@ -29,6 +29,11 @@ class ConnectionServiceStub(object):
         request_serializer=connection__pb2.AuthRequest.SerializeToString,
         response_deserializer=connection__pb2.AuthResponse.FromString,
         )
+    self.WaitAuth = channel.stream_stream(
+        '/connection_grpc.ConnectionService/WaitAuth',
+        request_serializer=connection__pb2.WaitAuthRequest.SerializeToString,
+        response_deserializer=connection__pb2.WaitAuthResponse.FromString,
+        )
 
 
 class ConnectionServiceServicer(object):
@@ -56,6 +61,13 @@ class ConnectionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def WaitAuth(self, request_iterator, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ConnectionServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -73,6 +85,11 @@ def add_ConnectionServiceServicer_to_server(servicer, server):
           servicer.Auth,
           request_deserializer=connection__pb2.AuthRequest.FromString,
           response_serializer=connection__pb2.AuthResponse.SerializeToString,
+      ),
+      'WaitAuth': grpc.stream_stream_rpc_method_handler(
+          servicer.WaitAuth,
+          request_deserializer=connection__pb2.WaitAuthRequest.FromString,
+          response_serializer=connection__pb2.WaitAuthResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

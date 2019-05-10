@@ -23,3 +23,18 @@ class AuthResponse_ResultMessage extends $pb.ProtobufEnum {
   const AuthResponse_ResultMessage._($core.int v, $core.String n) : super(v, n);
 }
 
+class AuthDeviceInfo_DeviceType extends $pb.ProtobufEnum {
+  static const AuthDeviceInfo_DeviceType DEVICE_TABLET = AuthDeviceInfo_DeviceType._(0, 'DEVICE_TABLET');
+  static const AuthDeviceInfo_DeviceType DEVICE_WEB = AuthDeviceInfo_DeviceType._(1, 'DEVICE_WEB');
+
+  static const $core.List<AuthDeviceInfo_DeviceType> values = <AuthDeviceInfo_DeviceType> [
+    DEVICE_TABLET,
+    DEVICE_WEB,
+  ];
+
+  static final $core.Map<$core.int, AuthDeviceInfo_DeviceType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static AuthDeviceInfo_DeviceType valueOf($core.int value) => _byValue[value];
+
+  const AuthDeviceInfo_DeviceType._($core.int v, $core.String n) : super(v, n);
+}
+

@@ -30,6 +30,11 @@ class ConnectionServiceClient extends $grpc.Client {
       '/connection_grpc.ConnectionService/Auth',
       (AuthRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => AuthResponse.fromBuffer(value));
+  static final _$waitAuth =
+      $grpc.ClientMethod<WaitAuthRequest, WaitAuthResponse>(
+          '/connection_grpc.ConnectionService/WaitAuth',
+          (WaitAuthRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => WaitAuthResponse.fromBuffer(value));
 
   ConnectionServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions options})
@@ -56,6 +61,13 @@ class ConnectionServiceClient extends $grpc.Client {
     final call = $createCall(_$auth, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseStream<WaitAuthResponse> waitAuth(
+      $async.Stream<WaitAuthRequest> request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(_$waitAuth, request, options: options);
+    return $grpc.ResponseStream(call);
   }
 }
 
@@ -84,6 +96,13 @@ abstract class ConnectionServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => AuthRequest.fromBuffer(value),
         (AuthResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<WaitAuthRequest, WaitAuthResponse>(
+        'WaitAuth',
+        waitAuth,
+        true,
+        true,
+        ($core.List<$core.int> value) => WaitAuthRequest.fromBuffer(value),
+        (WaitAuthResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<RequestUserIdResponse> requestUserId_Pre(
@@ -106,4 +125,6 @@ abstract class ConnectionServiceBase extends $grpc.Service {
   $async.Future<ConnectionResponse> connection(
       $grpc.ServiceCall call, ConnectionRequest request);
   $async.Future<AuthResponse> auth($grpc.ServiceCall call, AuthRequest request);
+  $async.Stream<WaitAuthResponse> waitAuth(
+      $grpc.ServiceCall call, $async.Stream<WaitAuthRequest> request);
 }

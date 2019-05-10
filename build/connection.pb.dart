@@ -87,6 +87,7 @@ class ConnectionResponse extends $pb.GeneratedMessage {
 class AuthRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('AuthRequest', package: const $pb.PackageName('connection_grpc'))
     ..aOS(1, 'connectionCode')
+    ..a<AuthDeviceInfo>(2, 'deviceInfo', $pb.PbFieldType.OM, AuthDeviceInfo.getDefault, AuthDeviceInfo.create)
     ..hasRequiredFields = false
   ;
 
@@ -106,6 +107,11 @@ class AuthRequest extends $pb.GeneratedMessage {
   set connectionCode($core.String v) { $_setString(0, v); }
   $core.bool hasConnectionCode() => $_has(0);
   void clearConnectionCode() => clearField(1);
+
+  AuthDeviceInfo get deviceInfo => $_getN(1);
+  set deviceInfo(AuthDeviceInfo v) { setField(2, v); }
+  $core.bool hasDeviceInfo() => $_has(1);
+  void clearDeviceInfo() => clearField(2);
 }
 
 class AuthResponse extends $pb.GeneratedMessage {
@@ -136,6 +142,96 @@ class AuthResponse extends $pb.GeneratedMessage {
   set userId($core.String v) { $_setString(1, v); }
   $core.bool hasUserId() => $_has(1);
   void clearUserId() => clearField(2);
+}
+
+class WaitAuthRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('WaitAuthRequest', package: const $pb.PackageName('connection_grpc'))
+    ..aOS(1, 'userId')
+    ..a<AuthDeviceInfo>(2, 'authDevice', $pb.PbFieldType.OM, AuthDeviceInfo.getDefault, AuthDeviceInfo.create)
+    ..aOB(3, 'acceptDevice')
+    ..hasRequiredFields = false
+  ;
+
+  WaitAuthRequest() : super();
+  WaitAuthRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  WaitAuthRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  WaitAuthRequest clone() => WaitAuthRequest()..mergeFromMessage(this);
+  WaitAuthRequest copyWith(void Function(WaitAuthRequest) updates) => super.copyWith((message) => updates(message as WaitAuthRequest));
+  $pb.BuilderInfo get info_ => _i;
+  static WaitAuthRequest create() => WaitAuthRequest();
+  WaitAuthRequest createEmptyInstance() => create();
+  static $pb.PbList<WaitAuthRequest> createRepeated() => $pb.PbList<WaitAuthRequest>();
+  static WaitAuthRequest getDefault() => _defaultInstance ??= create()..freeze();
+  static WaitAuthRequest _defaultInstance;
+
+  $core.String get userId => $_getS(0, '');
+  set userId($core.String v) { $_setString(0, v); }
+  $core.bool hasUserId() => $_has(0);
+  void clearUserId() => clearField(1);
+
+  AuthDeviceInfo get authDevice => $_getN(1);
+  set authDevice(AuthDeviceInfo v) { setField(2, v); }
+  $core.bool hasAuthDevice() => $_has(1);
+  void clearAuthDevice() => clearField(2);
+
+  $core.bool get acceptDevice => $_get(2, false);
+  set acceptDevice($core.bool v) { $_setBool(2, v); }
+  $core.bool hasAcceptDevice() => $_has(2);
+  void clearAcceptDevice() => clearField(3);
+}
+
+class WaitAuthResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('WaitAuthResponse', package: const $pb.PackageName('connection_grpc'))
+    ..a<AuthDeviceInfo>(1, 'authDevice', $pb.PbFieldType.OM, AuthDeviceInfo.getDefault, AuthDeviceInfo.create)
+    ..hasRequiredFields = false
+  ;
+
+  WaitAuthResponse() : super();
+  WaitAuthResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  WaitAuthResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  WaitAuthResponse clone() => WaitAuthResponse()..mergeFromMessage(this);
+  WaitAuthResponse copyWith(void Function(WaitAuthResponse) updates) => super.copyWith((message) => updates(message as WaitAuthResponse));
+  $pb.BuilderInfo get info_ => _i;
+  static WaitAuthResponse create() => WaitAuthResponse();
+  WaitAuthResponse createEmptyInstance() => create();
+  static $pb.PbList<WaitAuthResponse> createRepeated() => $pb.PbList<WaitAuthResponse>();
+  static WaitAuthResponse getDefault() => _defaultInstance ??= create()..freeze();
+  static WaitAuthResponse _defaultInstance;
+
+  AuthDeviceInfo get authDevice => $_getN(0);
+  set authDevice(AuthDeviceInfo v) { setField(1, v); }
+  $core.bool hasAuthDevice() => $_has(0);
+  void clearAuthDevice() => clearField(1);
+}
+
+class AuthDeviceInfo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('AuthDeviceInfo', package: const $pb.PackageName('connection_grpc'))
+    ..e<AuthDeviceInfo_DeviceType>(1, 'deviceType', $pb.PbFieldType.OE, AuthDeviceInfo_DeviceType.DEVICE_TABLET, AuthDeviceInfo_DeviceType.valueOf, AuthDeviceInfo_DeviceType.values)
+    ..aOS(2, 'deviceName')
+    ..hasRequiredFields = false
+  ;
+
+  AuthDeviceInfo() : super();
+  AuthDeviceInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  AuthDeviceInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  AuthDeviceInfo clone() => AuthDeviceInfo()..mergeFromMessage(this);
+  AuthDeviceInfo copyWith(void Function(AuthDeviceInfo) updates) => super.copyWith((message) => updates(message as AuthDeviceInfo));
+  $pb.BuilderInfo get info_ => _i;
+  static AuthDeviceInfo create() => AuthDeviceInfo();
+  AuthDeviceInfo createEmptyInstance() => create();
+  static $pb.PbList<AuthDeviceInfo> createRepeated() => $pb.PbList<AuthDeviceInfo>();
+  static AuthDeviceInfo getDefault() => _defaultInstance ??= create()..freeze();
+  static AuthDeviceInfo _defaultInstance;
+
+  AuthDeviceInfo_DeviceType get deviceType => $_getN(0);
+  set deviceType(AuthDeviceInfo_DeviceType v) { setField(1, v); }
+  $core.bool hasDeviceType() => $_has(0);
+  void clearDeviceType() => clearField(1);
+
+  $core.String get deviceName => $_getS(1, '');
+  set deviceName($core.String v) { $_setString(1, v); }
+  $core.bool hasDeviceName() => $_has(1);
+  void clearDeviceName() => clearField(2);
 }
 
 class Empty extends $pb.GeneratedMessage {
