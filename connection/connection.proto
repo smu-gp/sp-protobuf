@@ -3,17 +3,11 @@ syntax = "proto3";
 package connection_grpc;
 
 service ConnectionService {
-    rpc RequestUserId (Empty) returns (RequestUserIdResponse);
-
     rpc Connection (ConnectionRequest) returns (ConnectionResponse);
 
     rpc Auth (AuthRequest) returns (AuthResponse);
 
     rpc WaitAuth (stream WaitAuthRequest) returns (stream WaitAuthResponse);
-}
-
-message RequestUserIdResponse {
-    string userId = 1;
 }
 
 message ConnectionRequest {
