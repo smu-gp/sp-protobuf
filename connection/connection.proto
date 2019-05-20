@@ -29,8 +29,17 @@ message AuthResponse {
         MESSAGE_SUCCESS = 1;
     }
 
+    enum FailedReason {
+        NONE = 0;
+        AUTH_FAILED = 1;
+        INTERNAL_ERR = 2;
+        REJECT_HOST = 3;
+        NO_HOST_WAITED = 4;
+    }
+
     ResultMessage message = 1;
     string userId = 2;
+    FailedReason failedReason = 3;
 }
 
 message WaitAuthRequest {
