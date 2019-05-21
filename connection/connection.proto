@@ -35,6 +35,7 @@ message AuthResponse {
         INTERNAL_ERR = 2;
         REJECT_HOST = 3;
         NO_HOST_WAITED = 4;
+        RESPONSE_TIMEOUT = 5;
     }
 
     ResultMessage message = 1;
