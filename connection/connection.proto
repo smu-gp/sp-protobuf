@@ -55,7 +55,7 @@ message WaitAuthResponse {
 
 message AuthDeviceInfo {
     enum DeviceType {
-        DEVICE_TABLET = 0;
+        DEVICE_ANDROID = 0;
         DEVICE_WEB = 1;
     }
 
